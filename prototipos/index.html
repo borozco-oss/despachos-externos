@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prototipos · Despachos externos · Nexu</title>
+<link rel="stylesheet" href="../design-system/kit.css">
+<script src="../design-system/icons.js"></script>
+<style>
+  .proto-banner{display:flex;gap:10px;align-items:flex-start;background:var(--primary-100);
+    border-radius:12px;padding:12px 16px;margin-bottom:20px}
+  .proto-banner .ic{color:var(--brand-primary-blue);flex:none;margin-top:1px}
+  .proto-banner p{margin:0;font-family:var(--font-body);font-size:13px;line-height:1.5;color:var(--text-base)}
+  .proto-banner strong{font-family:var(--font-display)}
+  .hub{max-width:960px}
+  .hub h1{font-family:var(--font-display);font-weight:700;font-size:26px;margin:0 0 8px}
+  .hub .lede{font-family:var(--font-body);font-size:14px;line-height:1.6;color:var(--text-muted);margin:0 0 24px}
+  .hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .hub-card{display:block;background:#fff;border-radius:16px;padding:20px;text-decoration:none;color:inherit;
+    box-shadow:var(--shadow-sm)}
+  .hub-card:hover{box-shadow:var(--shadow-m)}
+  .hub-card .who{font-family:var(--font-body);font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--text-subtle);margin:0 0 6px}
+  .hub-card h2{font-family:var(--font-display);font-weight:700;font-size:16px;margin:0 0 8px;color:var(--text-base)}
+  .hub-card p{font-family:var(--font-body);font-size:13px;line-height:1.5;color:var(--text-muted);margin:0}
+  .hub-card .meta{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+  .read-flag{display:inline-flex;font-family:var(--font-display);font-weight:700;font-size:11px;
+    padding:3px 10px;border-radius:9999px;background:var(--gray-100);color:var(--text-muted)}
+  .phone{width:360px;background:#fff;border-radius:28px;box-shadow:var(--shadow-m);overflow:hidden;
+    border:1px solid var(--gray-200);margin:0 auto}
+  .phone-bar{background:#075E54;color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px}
+  .phone-bar .av{width:36px;height:36px;border-radius:9999px;background:var(--brand-accent-green);
+    color:var(--action-navy);display:flex;align-items:center;justify-content:center;
+    font-family:var(--font-display);font-weight:700;font-size:12px}
+  .phone-bar .nm{font-family:var(--font-display);font-weight:700;font-size:14px}
+  .phone-bar .st{font-family:var(--font-body);font-size:11px;opacity:.8}
+  .chat{background:#ECE5DD;padding:16px 12px;min-height:480px;display:flex;flex-direction:column;gap:8px}
+  .bubble{max-width:82%;padding:8px 12px;border-radius:10px;font-family:var(--font-body);font-size:13px;line-height:1.45}
+  .bubble.bot{background:#fff;align-self:flex-start}
+  .bubble.me{background:#DCF8C6;align-self:flex-end}
+  .bubble .t{font-size:10px;color:var(--text-subtle);text-align:right;margin-top:4px}
+  .bubble a.link{color:var(--action-blue);font-family:var(--font-display);font-weight:700;font-size:12.5px}
+  .wa-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:16px}
+  .timeline{display:flex;flex-direction:column}
+  .tl-item{display:grid;grid-template-columns:20px 1fr;gap:14px}
+  .tl-item .dotcol{display:flex;flex-direction:column;align-items:center}
+  .tl-item .dot{width:12px;height:12px;border-radius:9999px;background:var(--action-blue);margin-top:6px;flex:none}
+  .tl-item .line{width:2px;flex:1;background:var(--gray-200);margin:4px 0 0}
+  .tl-item:last-child .line{display:none}
+  .tl-body{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:12px;border:1px solid var(--gray-100)}
+  .tl-body .when{font-family:var(--font-body);font-size:11px;color:var(--text-subtle);margin:0 0 4px}
+  .tl-body h3{font-family:var(--font-display);font-weight:700;font-size:14px;margin:0 0 6px}
+  .tl-body p{font-family:var(--font-body);font-size:13px;color:var(--text-muted);margin:0;line-height:1.45}
+  .hitl-actions{display:flex;gap:10px;justify-content:flex-end}
+  .tb-mark{width:22px;height:22px;color:var(--brand-primary-blue);flex:none}
+  .tb-mark svg{width:100%;height:100%;display:block}
+  .tb-word{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--text-base);flex:none}
+  .page-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}
+  .page-head-row p{margin:6px 0 0;font-size:13px;color:var(--text-muted);max-width:560px;line-height:1.5}
+  .note-ro{background:var(--warning-100);color:var(--warning-900);border-radius:12px;padding:12px 16px;
+    font-family:var(--font-body);font-size:13px;line-height:1.5;margin-bottom:16px}
+  .flow-pill{flex:none;display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;
+    font-family:var(--font-display);font-weight:700;font-size:12px;color:var(--text-muted);
+    border:none;background:transparent;cursor:pointer}
+  .flow-bar{flex:none;background:#fff;border-bottom:1px solid var(--gray-200);padding:var(--space-3) var(--space-5);
+    display:flex;flex-direction:column;gap:var(--space-3)}
+  .flow-bar-top{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3)}
+  .flow-pills{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;justify-content:flex-start}
+  .flow-pill span{width:20px;height:20px;border-radius:9999px;background:var(--gray-100);display:flex;
+    align-items:center;justify-content:center;font-size:11px}
+  .flow-pill.on{background:var(--primary-100);color:var(--brand-primary-blue)}
+  .flow-pill.on span{background:var(--brand-primary-blue);color:#fff}
+  .flow-pill.later{opacity:.7}
+  .flow-nav-btns{display:flex;gap:4px;flex:none}
+  .flow-nav-btns .icon-btn{text-decoration:none;flex:none}
+  .cell-client .nm.nm-link{color:var(--action-blue);text-decoration:underline;text-underline-offset:2px;cursor:pointer}
+  .asig-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:8px}
+  .asig-stats{display:flex;gap:20px;flex:none;flex-wrap:wrap}
+  .asig-stats .lab{font-family:var(--font-body);font-size:12px;color:var(--text-muted)}
+  .later-banner{background:var(--gray-100);border-radius:12px;padding:12px 16px;margin-bottom:16px;
+    font-family:var(--font-body);font-size:13px;color:var(--text-muted)}
+  .sources{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+  @media (max-width:900px){.hub-grid,.kpi-row,.asig-grid,.sources{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="chrome.js?v=6"></script>
+<script>
+function tag(label, kind) {
+  var bg = "var(--gray-100)", color = "var(--gray-700)";
+  if (kind === "ok") { bg = "var(--success-100)"; color = "var(--success-900)"; }
+  if (kind === "warn") { bg = "var(--warning-100)"; color = "var(--warning-900)"; }
+  if (kind === "err") { bg = "var(--error-100)"; color = "var(--error-900)"; }
+  if (kind === "info") { bg = "var(--primary-100)"; color = "var(--brand-primary-blue)"; }
+  return '<span class="tag" style="background:' + bg + ";color:" + color + '">' + label + "</span>";
+}
+function kpi(val, lab) {
+  return '<div class="card card-raised kpi"><div class="val">' + val + '</div><div class="lab">' + lab + "</div></div>";
+}
+function pageHead(title, sub, actions) {
+  return '<div class="page-head-row"><div><h1 class="page-title">' + title + "</h1><p>" + sub +
+    '</p></div><div class="row gap12">' + (actions || "") + "</div></div>";
+}
+function av(name) {
+  return name.split(" ").map(function (w) { return w[0]; }).slice(0, 2).join("");
+}
+function cliCell(name) {
+  return '<div class="cell-client" data-cliente="' + name + '" style="cursor:pointer"><div class="av">' + av(name) + '</div><div><div class="nm nm-link">' + name + "</div></div></div>";
+}
+function bindExpedienteClicks(root) {
+  root.querySelectorAll(".cell-client[data-cliente]").forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      e.stopPropagation();
+      window.__expCliente = el.getAttribute("data-cliente");
+      NexuProto.go("expediente");
+    });
+  });
+}
+
+function renderHub() {
+  NexuProto.go("whatsapp");
+}
+
+/* 1. Solicitud */
+function renderSolicitud(el) {
+  el.innerHTML =
+    pageHead(
+      "Solicitar gestión externa",
+      "José Armando Cruz está en BKT 2. Edwin ya agotó teléfono y referencias. La solicitud entra al pool de Ara; no se asigna sola.",
+      ""
+    ) +
+    '<div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">' +
+    '<div class="card card-raised">' +
+    '<p class="eyebrow">Cliente</p>' +
+    '<div class="cell-client" style="margin:10px 0 16px"><div class="av">JA</div><div><div class="nm">José Armando Cruz</div><div class="id">NX-09811 · Monterrey</div></div></div>' +
+    '<div class="field-grid">' +
+    field("Bucket", "BKT 2 · 47 días") +
+    field("Saldo", "$94,200") +
+    field("Gestor interno", "Edwin López") +
+    field("Intentos de contacto", "8 llamadas · 3 refs") +
+    "</div></div>" +
+    '<div class="card card-raised">' +
+    '<p class="card-title">Motivo de la visita</p>' +
+    '<div class="form-field" style="margin:14px 0"><label>Razón</label><div class="control"><select><option>Sin contacto tras intentos razonables</option><option>Cliente pidió que pasaran por la unidad</option><option>Sospecha de fraude / domicilio falso</option></select></div></div>' +
+    '<div class="form-field"><label>Nota para Ara</label><div class="control"><input value="No contesta desde el 4 ago. La hermana colgó. Pedimos visita en Apodaca."></div></div>' +
+    '<div class="row gap12" style="margin-top:18px;justify-content:flex-end">' +
+    '<button type="button" class="btn btn-secondary">Cancelar</button>' +
+    '<a class="btn btn-primary" href="#" data-go="pool">Enviar al pool</a></div>' +
+    '<p class="card-sub" style="margin-top:14px">Buckets 1 a 4 solo salen a externo si alguien lo pide o Ara lo mete. BKT 4+ entra solo, sin esta solicitud.</p>' +
+    "</div></div>";
+}
+
+/* 2. Pool */
+function renderPool(el) {
+  el.innerHTML =
+    pageHead(
+      "Pool de elegibilidad",
+      "Aquí se juntan las dos entradas. Ara tiene control total: qué sí pasa a asignación y qué se queda.",
+      '<button type="button" class="btn btn-primary" data-go="preparar">Preparar asignación</button>'
+    ) +
+    '<div class="sources">' +
+    '<div class="card card-raised"><p class="eyebrow">Entrada A</p><p class="card-title">Solicitud desde CC</p>' +
+    '<p class="card-sub">Gestor interno pide visita en BKT 1–4. Ara aprueba o rechaza. 12 este corte.</p></div>' +
+    '<div class="card card-raised"><p class="eyebrow">Entrada B</p><p class="card-title">Elegible directo</p>' +
+    '<p class="card-sub">Todo cliente en BKT 4 o más entra solo al pool. 202 este corte. Ara puede sacarlos.</p></div>' +
+    "</div>" +
+    '<div class="kpi-row" style="grid-template-columns:repeat(3,1fr)">' +
+    kpi("214", "En el pool") +
+    kpi("12", "Solicitudes BKT 1–4") +
+    kpi("202", "BKT 4+ directo") +
+    "</div>" +
+    '<div class="tabs" style="margin-bottom:16px">' +
+    '<button type="button" class="on">Todas <span class="count">214</span></button>' +
+    '<button type="button">Solicitudes <span class="count">12</span></button>' +
+    '<button type="button">BKT 4+ directo <span class="count">202</span></button>' +
+    '<button type="button">Fuera / no asignar <span class="count">28</span></button></div>' +
+    '<div class="card card-raised" style="padding:0;overflow:auto"><table class="table"><thead><tr>' +
+    "<th></th><th>Cliente</th><th>Origen</th><th>Bucket</th><th>Saldo</th><th>Plaza</th><th>Decisión</th>" +
+    "</tr></thead><tbody>" +
+    poolRow(true, "José Armando Cruz", "Solicitud · Edwin", "BKT 2", "$94,200", "Monterrey", "info") +
+    poolRow(true, "María Elena López", "BKT 4+ directo", "BKT 8", "$186,400", "Guadalajara", "ok") +
+    poolRow(true, "Lucía Ramírez Soto", "BKT 4+ directo", "BKT 11", "$241,090", "CDMX Oriente", "ok") +
+    poolRow(false, "Carlos Méndez", "BKT 4+ directo", "BKT 4", "$41,800", "Monterrey", "warn") +
+    "</tbody></table></div>";
+  bindExpedienteClicks(el);
+}
+function poolRow(checked, name, origin, bkt, saldo, plaza, kind) {
+  return "<tr><td><span class=\"ck" + (checked ? " on" : "") + "\"><span class=\"ic\">" +
+    NexuProto.ic("check", 13) + "</span></span></td>" +
+    '<td>' + cliCell(name) + "</td><td>" + tag(origin, kind) + "</td><td>" + tag(bkt, "info") +
+    '</td><td class="td-num">' + saldo + "</td><td>" + plaza + "</td><td>" +
+    (checked ? tag("Pasa a asignación", "ok") : tag("Se queda", "warn")) + "</td></tr>";
+}
+
+/* 3. Preparar asignación */
+function tg(on) {
+  return '<button type="button" class="tg' + (on ? " on" : "") + '" aria-checked="' + (on ? "true" : "false") + '"></button>';
+}
+function renderPreparar(el) {
+  el.innerHTML =
+    pageHead(
+      "Preparar la asignación",
+      "Ara marca despachos activos y visitadores internos de Nexu (CDMX y alrededores). Con esa lista, la lógica reparte las cuentas del pool.",
+      '<button type="button" class="btn btn-primary" data-go="asignacion">Asignar cuentas</button>'
+    ) +
+    '<div class="kpi-row" style="grid-template-columns:repeat(3,1fr)">' +
+    kpi("214", "Del pool") +
+    kpi("4", "Proveedores activos") +
+    kpi("5", "Visitadores Nexu activos") +
+    "</div>" +
+    '<div class="sources">' +
+    '<div class="card card-raised" style="padding:0;overflow:auto">' +
+    '<div class="row between" style="padding:16px 16px 8px;gap:8px"><p class="card-title" style="margin:0">Proveedores</p>' +
+    '<button type="button" class="btn btn-tertiary btn-sm"><span class="ic">' + NexuProto.ic("add", 16) +
+    "</span> Agregar proveedor</button></div>" +
+    '<table class="table"><thead><tr><th>Proveedor</th><th>Cobertura</th><th>Visitadores</th><th>Activo</th></tr></thead><tbody>' +
+    provRow("Seprocob", "Occidente", "8", true) +
+    provRow("AVI", "Norte", "5", true) +
+    provRow("Opus", "CDMX / Bajío", "6", true) +
+    provRow("Recoup", "Sureste", "5", true) +
+    provRow("GRC", "Bajío", "3", false) +
+    "</tbody></table></div>" +
+    '<div class="card card-raised" style="padding:0;overflow:auto">' +
+    '<div class="row between" style="padding:16px 16px 8px;gap:8px"><p class="card-title" style="margin:0">Visitadores Nexu</p>' +
+    '<button type="button" class="btn btn-tertiary btn-sm"><span class="ic">' + NexuProto.ic("add", 16) +
+    "</span> Agregar visitador</button></div>" +
+    '<table class="table"><thead><tr><th>Visitador</th><th>Cobertura</th><th>Activo</th></tr></thead><tbody>' +
+    visRow("Marco Hernández", "CDMX Centro", true) +
+    visRow("Daniela Vega", "CDMX Sur", true) +
+    visRow("Iván Trejo", "Edo. Méx. · Naucalpan", true) +
+    visRow("Sofía Lara", "Edo. Méx. · Ecatepec", true) +
+    visRow("Alejandra Pineda", "Morelos · Cuernavaca", true) +
+    visRow("René Campos", "CDMX Oriente", false) +
+    "</tbody></table></div></div>" +
+    '<div class="card card-raised" style="padding:0;overflow:auto;margin-top:14px">' +
+    '<div class="row between" style="padding:16px;gap:12px;flex-wrap:wrap">' +
+    '<p class="card-title" style="margin:0">Pool de clientes</p>' +
+    '<div class="searchbar"><span class="ic">' + NexuProto.ic("search", 18) +
+    '</span><input type="search" id="prep-search" placeholder="Buscar cliente, ciudad o estado"></div></div>' +
+    '<table class="table"><thead><tr><th>Cliente</th><th>Origen</th><th>Bucket</th><th>Saldo</th><th>Ciudad, Estado</th><th>Asignar a</th><th></th></tr></thead>' +
+    '<tbody id="prep-pool-body"></tbody></table></div>' +
+    '<p class="card-sub" style="margin-top:14px">Si no los asignas a mano, quedan en asignación automática al pulsar Asignar cuentas. Quitar del pool los saca de esta corrida.</p>';
+  bindPrepPool(el);
+}
+function provRow(name, zona, n, on) {
+  return "<tr><td style=\"font-family:var(--font-display);font-weight:700\">" + name + "</td><td>" + zona +
+    '</td><td class="td-num">' + n + "</td><td>" + tg(on) + "</td></tr>";
+}
+function visRow(name, plaza, on) {
+  return "<tr><td>" + name + "</td><td>" + plaza + "</td><td>" + tg(on) + "</td></tr>";
+}
+var PREP_ASSIGNEES = [
+  { v: "", label: "Asignación automática" },
+  { group: "Visitadores Nexu", items: [
+    { v: "Marco Hernández · Nexu", label: "Marco Hernández · CDMX Centro" },
+    { v: "Daniela Vega · Nexu", label: "Daniela Vega · CDMX Sur" },
+    { v: "Iván Trejo · Nexu", label: "Iván Trejo · Naucalpan" },
+    { v: "Sofía Lara · Nexu", label: "Sofía Lara · Ecatepec" },
+    { v: "Alejandra Pineda · Nexu", label: "Alejandra Pineda · Cuernavaca" },
+  ]},
+  { group: "Despachos", items: [
+    { v: "Seprocob", label: "Seprocob · Occidente" },
+    { v: "AVI", label: "AVI · Norte" },
+    { v: "Opus", label: "Opus · CDMX / Bajío" },
+    { v: "Recoup", label: "Recoup · Sureste" },
+  ]},
+];
+var PREP_POOL_SEED = [
+  { id: "1", name: "José Armando Cruz", origin: "Solicitud · Edwin", bkt: "BKT 2", saldo: "$94,200", plaza: "Monterrey, N.L." },
+  { id: "2", name: "María Elena López", origin: "BKT 4+ directo", bkt: "BKT 8", saldo: "$186,400", plaza: "Guadalajara, Jal." },
+  { id: "3", name: "Lucía Ramírez Soto", origin: "BKT 4+ directo", bkt: "BKT 11", saldo: "$241,090", plaza: "Iztapalapa, CDMX" },
+  { id: "4", name: "Carlos Méndez", origin: "BKT 4+ directo", bkt: "BKT 4", saldo: "$41,800", plaza: "Monterrey, N.L." },
+  { id: "5", name: "Ana Patricia Gil", origin: "BKT 4+ directo", bkt: "BKT 7", saldo: "$128,550", plaza: "León, Gto." },
+  { id: "6", name: "Roberto Salinas", origin: "Solicitud · Edwin", bkt: "BKT 3", saldo: "$72,400", plaza: "Querétaro, Qro." },
+];
+function prepPoolRow(c) {
+  var opts = "";
+  PREP_ASSIGNEES.forEach(function (o) {
+    if (o.group) {
+      opts += '<optgroup label="' + o.group + '">';
+      o.items.forEach(function (item) {
+        opts += "<option value=\"" + item.v + "\"" + (c.asignado === item.v ? " selected" : "") + ">" + item.label + "</option>";
+      });
+      opts += "</optgroup>";
+    } else {
+      opts += "<option value=\"" + o.v + "\"" + (c.asignado === o.v ? " selected" : "") + ">" + o.label + "</option>";
+    }
+  });
+  return "<tr><td>" + cliCell(c.name) +
+    "</td><td>" + c.origin + "</td><td>" + tag(c.bkt, "info") +
+    '</td><td class="td-num">' + c.saldo + "</td><td>" + c.plaza + "</td>" +
+    '<td><div class="control"><select class="prep-assign" data-id="' + c.id + '">' + opts + "</select></div></td>" +
+    '<td><button type="button" class="btn btn-tertiary btn-sm prep-remove" data-id="' + c.id + '">Quitar del pool</button></td></tr>';
+}
+function bindPrepPool(el) {
+  var pool = PREP_POOL_SEED.map(function (c) { return { id: c.id, name: c.name, origin: c.origin, bkt: c.bkt, saldo: c.saldo, plaza: c.plaza, asignado: "", out: false }; });
+  var search = el.querySelector("#prep-search");
+  function paint() {
+    var q = (search && search.value ? search.value : "").toLowerCase().trim();
+    var rows = pool.filter(function (c) {
+      if (c.out) return false;
+      if (!q) return true;
+      return (c.name + " " + c.plaza + " " + c.origin).toLowerCase().indexOf(q) !== -1;
+    });
+    var tbody = el.querySelector("#prep-pool-body");
+    if (!tbody) return;
+    tbody.innerHTML = rows.length
+      ? rows.map(prepPoolRow).join("")
+      : '<tr><td colspan="7"><p class="card-sub" style="margin:12px 0">Ningún cliente con esa búsqueda.</p></td></tr>';
+    tbody.querySelectorAll(".prep-remove").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        pool.forEach(function (c) { if (c.id === btn.getAttribute("data-id")) c.out = true; });
+        paint();
+      });
+    });
+    tbody.querySelectorAll(".prep-assign").forEach(function (sel) {
+      sel.addEventListener("change", function () {
+        pool.forEach(function (c) { if (c.id === sel.getAttribute("data-id")) c.asignado = sel.value; });
+      });
+    });
+    bindExpedienteClicks(tbody);
+  }
+  if (search) search.addEventListener("input", paint);
+  paint();
+}
+
+/* 4. Qué trae cada uno */
+function estatusKind(s) {
+  if (s === "Al corriente") return "ok";
+  if (s === "Sin gestión") return "err";
+  if (s === "Promesa de pago" || s === "Dación") return "warn";
+  return "info";
+}
+var ASIG = {
+  seprocob: { kind: "Despacho", name: "Seprocob", zona: "Occidente", cuentas: "62", monto: "$1.12M", rec: "$124k", pct: 11.1, vis: "41", ptp: "8", dac: "6", sin: "12",
+    clients: [
+      ["María Elena López", "Guadalajara, Jal.", "BKT 8", "$186,400", "En proceso"],
+      ["Roberto Salinas", "Zapopan, Jal.", "BKT 6", "$72,300", "Promesa de pago"],
+      ["Diana Gutiérrez", "Tlaquepaque, Jal.", "BKT 9", "$155,000", "Sin gestión"],
+      ["Héctor Palacios", "Tepic, Nay.", "BKT 5", "$88,200", "Al corriente"],
+    ] },
+  avi: { kind: "Despacho", name: "AVI", zona: "Norte", cuentas: "48", monto: "$890k", rec: "$38k", pct: 4.3, vis: "12", ptp: "2", dac: "4", sin: "22",
+    clients: [
+      ["Lucía Ramírez Soto", "Monterrey, N.L.", "BKT 11", "$241,090", "Dación"],
+      ["Carlos Méndez", "Monterrey, N.L.", "BKT 4", "$41,800", "Sin gestión"],
+      ["Paola Ibarra", "Saltillo, Coah.", "BKT 7", "$96,400", "En proceso"],
+    ] },
+  opus: { kind: "Despacho", name: "Opus", zona: "Bajío", cuentas: "44", monto: "$760k", rec: "$156k", pct: 20.5, vis: "28", ptp: "11", dac: "3", sin: "9",
+    clients: [
+      ["José Armando Cruz", "León, Gto.", "BKT 2", "$94,200", "En proceso"],
+      ["Ana Patricia Gil", "León, Gto.", "BKT 7", "$128,550", "Resguardo"],
+      ["Miguel Ávila", "Irapuato, Gto.", "BKT 5", "$61,000", "Al corriente"],
+    ] },
+  recoup: { kind: "Despacho", name: "Recoup", zona: "Sureste", cuentas: "38", monto: "$640k", rec: "$100k", pct: 15.6, vis: "18", ptp: "5", dac: "3", sin: "11",
+    clients: [
+      ["Brenda Canto", "Mérida, Yuc.", "BKT 8", "$110,200", "Promesa de pago"],
+      ["Omar Dzib", "Cancún, Q.R.", "BKT 6", "$74,800", "Sin gestión"],
+    ] },
+  marco: { kind: "Visitador Nexu", name: "Marco Hernández", zona: "CDMX Centro", cuentas: "6", monto: "$214k", rec: "$18k", pct: 8.4, vis: "4", ptp: "1", dac: "1", sin: "1",
+    clients: [
+      ["Elena Morales", "Cuauhtémoc, CDMX", "BKT 5", "$48,200", "En proceso"],
+      ["Jorge Beltrán", "Benito Juárez, CDMX", "BKT 4", "$32,100", "Al corriente"],
+      ["Norma Ríos", "Coyoacán, CDMX", "BKT 8", "$71,400", "Sin gestión"],
+    ] },
+  daniela: { kind: "Visitador Nexu", name: "Daniela Vega", zona: "CDMX Sur", cuentas: "5", monto: "$168k", rec: "$12k", pct: 7.1, vis: "3", ptp: "1", dac: "0", sin: "1",
+    clients: [
+      ["Pablo Cárdenas", "Xochimilco, CDMX", "BKT 6", "$55,000", "Promesa de pago"],
+      ["Lucía Ferrer", "Tlalpan, CDMX", "BKT 7", "$44,800", "En proceso"],
+    ] },
+  ivan: { kind: "Visitador Nexu", name: "Iván Trejo", zona: "Edo. Méx. · Naucalpan", cuentas: "4", monto: "$132k", rec: "$9k", pct: 6.8, vis: "3", ptp: "0", dac: "1", sin: "1",
+    clients: [
+      ["Adriana Soto", "Naucalpan, Méx.", "BKT 5", "$39,600", "Sin gestión"],
+      ["Raúl Peña", "Tlalnepantla, Méx.", "BKT 9", "$52,400", "Resguardo"],
+    ] },
+  sofia: { kind: "Visitador Nexu", name: "Sofía Lara", zona: "Edo. Méx. · Ecatepec", cuentas: "4", monto: "$121k", rec: "$7k", pct: 5.8, vis: "2", ptp: "1", dac: "0", sin: "1",
+    clients: [
+      ["Irma Vázquez", "Ecatepec, Méx.", "BKT 8", "$61,200", "Dación"],
+      ["Tomás Nieto", "Ecatepec, Méx.", "BKT 4", "$28,900", "Al corriente"],
+    ] },
+  alejandra: { kind: "Visitador Nexu", name: "Alejandra Pineda", zona: "Morelos · Cuernavaca", cuentas: "3", monto: "$98k", rec: "$6k", pct: 6.1, vis: "2", ptp: "0", dac: "0", sin: "1",
+    clients: [
+      ["Fabiola Méndez", "Cuernavaca, Mor.", "BKT 6", "$41,000", "En proceso"],
+      ["Sergio Lara", "Jiutepec, Mor.", "BKT 5", "$33,400", "Sin gestión"],
+    ] },
+};
+function renderAsignacion(el) {
+  var start = window.__asigPeriodo || "2026-08-21";
+  el.innerHTML =
+    pageHead(
+      "Qué trae cada uno",
+      "Despachos y visitadores Nexu: qué se les asignó y cómo van en el periodo. Ordenados por % de recuperación.",
+      ""
+    ) +
+    periodoCard(start) +
+    '<div class="kpi-row">' +
+    kpi("214", "Asignadas") +
+    kpi("$418k", "Cash recuperado") +
+    kpi("27", "Daciones") +
+    kpi("61%", "Cuentas tocadas") +
+    "</div>" +
+    '<p class="card-title" style="margin:8px 0 4px">Despachos</p>' +
+    '<p class="card-sub" style="margin:0 0 12px">Ordenados por % de recuperación, de mayor a menor.</p>' +
+    '<div class="asig-grid">' +
+    asigCards(["seprocob", "avi", "opus", "recoup"]) +
+    "</div>" +
+    '<p class="card-title" style="margin:20px 0 4px">Visitadores Nexu</p>' +
+    '<p class="card-sub" style="margin:0 0 12px">Ordenados por % de recuperación, de mayor a menor.</p>' +
+    '<div class="asig-grid">' +
+    asigCards(["marco", "daniela", "ivan", "sofia", "alejandra"]) +
+    "</div>";
+  bindPeriodo(el);
+  el.querySelectorAll("[data-asig]").forEach(function (n) {
+    n.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.__asigId = n.getAttribute("data-asig");
+      window.__asigFiltro = "Todas";
+      NexuProto.go("asigdetalle");
+    });
+  });
+}
+function periodoRango(startStr) {
+  var s = new Date(startStr + "T00:00:00");
+  var e = new Date(s);
+  e.setDate(e.getDate() + 30);
+  function fmt(d) {
+    return d.toLocaleDateString("es-MX", { day: "numeric", month: "short", year: "numeric" });
+  }
+  function iso(d) {
+    var m = d.getMonth() + 1;
+    var day = d.getDate();
+    return d.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (day < 10 ? "0" : "") + day;
+  }
+  return { start: startStr, end: iso(e), label: fmt(s) + " – " + fmt(e), dias: 30 };
+}
+function periodoCard(startStr) {
+  var r = periodoRango(startStr);
+  return '<div class="card card-raised" style="margin-bottom:18px"><div class="row between" style="flex-wrap:wrap;gap:16px;align-items:flex-end">' +
+    '<div><p class="eyebrow">Periodo en gestión</p><p class="card-title" style="margin:4px 0 0" id="asig-periodo-lbl">' + r.label +
+    '</p><p class="card-sub" style="margin:6px 0 0">Aprox. un mes. La asignación puede hacerse cualquier día; el periodo corre desde esa fecha.</p></div>' +
+    '<div class="row gap16" style="flex-wrap:wrap;align-items:flex-end">' +
+    '<div class="form-field"><label>Inicio</label><div class="control"><span class="ic">' + NexuProto.ic("calendar", 20) +
+    '</span><input type="date" id="asig-inicio" value="' + r.start + '"></div></div>' +
+    '<div class="form-field"><label>Cierre</label><div class="control"><span class="ic">' + NexuProto.ic("calendar", 20) +
+    '</span><input type="date" id="asig-cierre" value="' + r.end + '"></div></div>' +
+    tag("30 días", "info") +
+    "</div></div></div>";
+}
+function bindPeriodo(el) {
+  var inicio = el.querySelector("#asig-inicio");
+  var cierre = el.querySelector("#asig-cierre");
+  var lbl = el.querySelector("#asig-periodo-lbl");
+  if (!inicio || !cierre) return;
+  function syncFromStart() {
+    var r = periodoRango(inicio.value);
+    window.__asigPeriodo = inicio.value;
+    cierre.value = r.end;
+    if (lbl) lbl.textContent = r.label;
+  }
+  function syncLabel() {
+    var s = new Date(inicio.value + "T00:00:00");
+    var e = new Date(cierre.value + "T00:00:00");
+    if (lbl) lbl.textContent = s.toLocaleDateString("es-MX", { day: "numeric", month: "short", year: "numeric" }) +
+      " – " + e.toLocaleDateString("es-MX", { day: "numeric", month: "short", year: "numeric" });
+  }
+  inicio.addEventListener("change", syncFromStart);
+  cierre.addEventListener("change", syncLabel);
+}
+function pctKind(pct) {
+  if (pct >= 15) return "ok";
+  if (pct >= 8) return "warn";
+  return "err";
+}
+function asigCards(ids) {
+  return ids.slice().sort(function (a, b) { return ASIG[b].pct - ASIG[a].pct; }).map(asigCard).join("");
+}
+function asigCard(id) {
+  var a = ASIG[id];
+  var pct = a.pct.toFixed(1).replace(".", ",") + "%";
+  return '<div class="card card-raised"><div class="row between" style="gap:16px;flex-wrap:wrap">' +
+    '<div style="min-width:200px"><div class="row gap8">' +
+    '<p class="card-title" style="margin:0">' + a.name + "</p>" + tag(pct, pctKind(a.pct)) +
+    '</div><p class="card-sub" style="margin:4px 0 0">' + a.kind + " · " + a.zona + "</p></div>" +
+    '<div class="asig-stats">' +
+    '<div><div class="val" style="font-family:var(--font-mono);font-size:16px">' + a.cuentas + '</div><div class="lab">Cuentas</div></div>' +
+    '<div><div class="val" style="font-family:var(--font-mono);font-size:16px">' + a.monto + '</div><div class="lab">Monto</div></div>' +
+    '<div><div class="val" style="font-family:var(--font-mono);font-size:16px">' + a.rec + '</div><div class="lab">Recuperación</div></div>' +
+    '<div><div class="val" style="font-family:var(--font-mono);font-size:16px">' + pct + '</div><div class="lab">% recuperación</div></div>' +
+    '<div><div class="val" style="font-family:var(--font-mono);font-size:16px">' + a.vis + '</div><div class="lab">Visitas evid.</div></div>' +
+    '<div><div class="val" style="font-family:var(--font-mono);font-size:16px">' + a.ptp + '</div><div class="lab">PTP</div></div>' +
+    '<div><div class="val" style="font-family:var(--font-mono);font-size:16px">' + a.sin + '</div><div class="lab">Sin tocar</div></div>' +
+    "</div>" +
+    '<button type="button" class="btn btn-tertiary btn-sm" data-asig="' + id + '">Ver clientes</button></div></div>';
+}
+function renderAsigDetalle(el) {
+  var a = ASIG[window.__asigId] || ASIG.seprocob;
+  var EST = ["Todas", "Sin gestión", "En proceso", "Promesa de pago", "Al corriente", "Resguardo", "Dación"];
+  var filtro = window.__asigFiltro || "Todas";
+  var rows = a.clients.filter(function (c) { return filtro === "Todas" || c[4] === filtro; });
+  el.innerHTML =
+    pageHead(
+      a.name,
+      a.kind + " · " + a.zona + ". Clientes asignados en la preparación y su estatus de gestión.",
+      '<button type="button" class="btn btn-secondary" data-go="asignacion">Volver a asignación</button>'
+    ) +
+    '<div class="kpi-row">' +
+    kpi(a.cuentas, "Cuentas") + kpi(a.monto, "Monto") + kpi(a.rec, "Recuperación") +
+    kpi(a.pct.toFixed(1).replace(".", ",") + "%", "% recuperación") +
+    "</div>" +
+    '<div class="tabs" style="margin-bottom:16px">' +
+    EST.map(function (s) {
+      var n = s === "Todas" ? a.clients.length : a.clients.filter(function (c) { return c[4] === s; }).length;
+      return '<button type="button"' + (filtro === s ? ' class="on"' : "") + ' data-filtro="' + s + '">' + s +
+        ' <span class="count">' + n + "</span></button>";
+    }).join("") +
+    "</div>" +
+    '<div class="card card-raised" style="padding:0;overflow:auto"><table class="table"><thead><tr>' +
+    "<th>Cliente</th><th>Ciudad, Estado</th><th>Bucket</th><th>Saldo</th><th>Estatus</th></tr></thead><tbody>" +
+    (rows.length
+      ? rows.map(function (c) {
+          return '<tr class="asig-cli" style="cursor:pointer" data-cliente="' + c[0] + '"><td>' + cliCell(c[0]) +
+            "</td><td>" + c[1] + "</td><td>" + tag(c[2], "info") +
+            '</td><td class="td-num">' + c[3] + "</td><td>" + tag(c[4], estatusKind(c[4])) + "</td></tr>";
+        }).join("")
+      : '<tr><td colspan="5"><p class="card-sub" style="margin:12px 0">Ningún cliente con ese estatus.</p></td></tr>') +
+    "</tbody></table></div>";
+  el.querySelectorAll("[data-filtro]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      window.__asigFiltro = btn.getAttribute("data-filtro");
+      renderAsigDetalle(el);
+      NexuProto.bind(el);
+    });
+  });
+  bindExpedienteClicks(el);
+}
+
+/* 5. Entrega */
+function vistaGestorLectura() {
+  var a = ASIG.seprocob;
+  return '<div class="note-ro">Solo lectura. El despacho ve su cartera curada: no asigna ni registra gestiones aquí. Las gestiones van por WhatsApp al agente de Nexu.</div>' +
+    '<div class="kpi-row">' +
+    kpi(a.cuentas, "Cuentas") + kpi(a.monto, "Monto asignado") + kpi(a.rec, "Recuperación") +
+    kpi(a.pct.toFixed(1).replace(".", ",") + "%", "% recuperación") +
+    "</div>" +
+    '<div class="card card-raised" style="padding:0;overflow:auto"><table class="table"><thead><tr>' +
+    "<th>Cliente</th><th>Ciudad, Estado</th><th>Bucket</th><th>Saldo</th><th>Estatus</th></tr></thead><tbody>" +
+    a.clients.map(function (c) {
+      return "<tr class=\"asig-cli\" style=\"cursor:pointer\" data-cliente=\"" + c[0] + "\"><td>" + cliCell(c[0]) +
+        "</td><td>" + c[1] + "</td><td>" + tag(c[2], "info") +
+        '</td><td class="td-num">' + c[3] + "</td><td>" + tag(c[4], estatusKind(c[4])) + "</td></tr>";
+    }).join("") +
+    "</tbody></table></div>";
+}
+function marcoVistaLectura() {
+  return '<div class="card card-raised" style="padding:0;overflow:hidden;margin-top:16px">' +
+    '<div class="row between" style="padding:12px 16px;background:var(--gray-100);gap:8px">' +
+    '<p class="card-sub" style="margin:0">nexu.mx/c/seprocob-ago</p>' + tag("Solo lectura", "info") + "</div>" +
+    '<div style="padding:16px">' + vistaGestorLectura() + "</div></div>";
+}
+function renderEntrega(el) {
+  el.innerHTML =
+    pageHead(
+      "Cómo llega la cartera al gestor",
+      "El aviso va por correo y por WhatsApp. Abajo está exactamente lo que abre el despacho: solo lectura.",
+      '<span class="read-flag">Solo lectura</span>'
+    ) +
+    '<p class="card-title" style="margin:0 0 12px">Correo</p>' +
+    '<div class="card card-raised" style="margin-bottom:24px">' +
+    '<div class="field-grid" style="margin-bottom:16px">' +
+    field("De", "Araceli Sánchez · Nexu Collections") +
+    field("Para", "Seprocob · gestoria@seprocob.mx") +
+    field("Asunto", "Cartera asignada · 21 ago – 20 sep 2026") +
+    field("Enviado", "21 ago 2026 · 09:04") +
+    "</div>" +
+    '<p style="font-family:var(--font-body);font-size:14px;line-height:1.6;color:var(--text-base);margin:0 0 16px">Hola, equipo Seprocob. Ya quedó asignada su cartera para el periodo <strong>21 ago – 20 sep 2026</strong>.</p>' +
+    '<a class="btn btn-primary" href="#despacho" data-go="despacho">Abrir cartera</a>' +
+    marcoVistaLectura() +
+    "</div>" +
+    '<p class="card-title" style="margin:0 0 12px">WhatsApp</p>' +
+    '<div class="card card-raised" style="padding:0;overflow:hidden;margin-bottom:48px">' +
+    '<div class="phone-bar"><div class="av">NX</div><div><div class="nm">Nexu Cobranza</div><div class="st">Seprocob · aviso de cartera</div></div></div>' +
+    '<div class="chat" style="min-height:0">' +
+    bubble("bot", "Seprocob, ya tienen cartera asignada. Periodo 21 ago – 20 sep 2026.") +
+    bubble("bot", "62 cuentas · $1.12M. Al abrir el link ven su cartera en solo lectura.") +
+    '<div class="bubble bot"><a class="link" href="#despacho" data-go="despacho">nexu.mx/c/seprocob-ago · Abrir cartera</a><div class="t">09:05</div></div>' +
+    bubble("me", "Recibido. Lo reenvío al equipo.") +
+    "</div></div>" +
+    '<p class="card-title" style="margin:0 0 12px">Cartera Collections Center</p>' +
+    vistaGestorLectura();
+  bindExpedienteClicks(el);
+}
+function renderDespacho(el) {
+  el.innerHTML =
+    pageHead("Cartera · Seprocob", "Vista curada para el despacho. Periodo 21 ago – 20 sep 2026.",
+      '<span class="read-flag">Solo lectura</span>') +
+    vistaGestorLectura();
+  bindExpedienteClicks(el);
+}
+
+/* 5. WhatsApp */
+function renderWhatsapp(el) {
+  var scene = window.__waScene || "seguimiento";
+  el.innerHTML =
+    pageHead("Agente en WhatsApp", "Luis Mora reporta y consulta desde el chat. El agente tipifica y escribe en la base. No hay app de campo.", "") +
+    '<div class="wa-tabs"><div class="seg">' +
+    '<button type="button"' + (scene === "seguimiento" ? ' class="on"' : "") + ' data-wa="seguimiento">Reportar visita</button>' +
+    '<button type="button"' + (scene === "consulta" ? ' class="on"' : "") + ' data-wa="consulta">Consultar la base</button></div></div>' +
+    (scene === "consulta" ? chatConsulta() : chatSeguimiento());
+  el.querySelectorAll("[data-wa]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      window.__waScene = btn.getAttribute("data-wa");
+      window.renderRoute();
+    });
+  });
+}
+function chatSeguimiento() {
+  return '<div class="phone"><div class="phone-bar"><div class="av">NX</div><div><div class="nm">Nexu Cobranza</div><div class="st">Agente · Seprocob</div></div></div><div class="chat">' +
+    bubble("bot", "Luis, 19 cuentas de tu pool no tienen gestión esta semana. María Elena López, NX-10482: ¿la visitaste?") +
+    bubble("me", "Sí, hoy. No estaba. El vecino dijo que sí vive ahí.") +
+    bubble("bot", "Quedó como visita sin contacto. Para el expediente necesito evidencia viva. Abre el link — cámara + GPS, sin galería.") +
+    '<div class="bubble bot"><a class="link" href="#" onclick="event.preventDefault();return false;">nexu.mx/e/a8f2 · Captura NX-10482</a><div class="t">09:12</div></div>' +
+    bubble("me", "Listo, ya la tomé.") +
+    bubble("bot", "Registré la visita. GPS a 42 m del domicilio. Ara y tu líder ya la ven en el historial.") +
+    "</div></div>";
+}
+function chatConsulta() {
+  return '<div class="phone"><div class="phone-bar"><div class="av">NX</div><div><div class="nm">Nexu Cobranza</div><div class="st">Agente · Seprocob</div></div></div><div class="chat">' +
+    bubble("me", "Voy para la de López. ¿Cuánto debe y a qué domicilio sí hemos llegado?") +
+    bubble("bot", "María Elena López. Debe $186,400. El domicilio que sí es C. Morelos 118, Americana. El de la INE estaba vacío. Si no abre, marca a la hermana: 33 1456 2290.") +
+    bubble("me", "¿Y si me promete pagar?") +
+    bubble("bot", "Sí cuenta, pero tiene que firmar el convenio y mandarte foto de la INE en el link. Si no, no queda como promesa.") +
+    "</div></div>";
+}
+function bubble(who, text) {
+  return '<div class="bubble ' + who + '">' + text + '<div class="t">09:08</div></div>';
+}
+
+/* 6. Mi cartera · Historial */
+function renderExpediente(el) {
+  if (!window.__expCliente) window.__expCliente = "María Elena López";
+  var d = expDatos(window.__expCliente);
+  el.innerHTML =
+    pageHead(d.nombre, d.id + " · " + d.bkt + " · " + d.asignado,
+      '<a class="btn btn-secondary" href="#cartera" data-go="cartera">Volver a cartera</a>') +
+    '<div class="note-ro">Nota para el recorrido: Ara y Jesús lo ven en Collection Center. El líder de despacho, en solo lectura. El gestor de campo, si pregunta, por WhatsApp. Nadie llena un formulario de visita aquí: lo escribió el agente.</div>' +
+    '<div class="card card-raised" style="margin-bottom:16px"><p class="eyebrow">Cuenta</p>' +
+    '<div class="field-grid" style="margin-top:12px">' +
+    field("Saldo", d.saldo) + field("Estatus", d.estatus) +
+    field("Bucket", d.bkt) + field("Producto", d.producto) +
+    "</div></div>" +
+    '<div class="card card-raised" style="margin-bottom:16px"><p class="eyebrow">Contacto para gestionar</p>' +
+    '<div class="field-grid" style="margin-top:12px">' +
+    field("Celular", d.cel) + field("Quién contesta", d.telOk) +
+    field("Referencia", d.ref) + field("Mejor horario", d.horario) +
+    "</div></div>" +
+    '<div class="card card-raised" style="margin-bottom:16px"><p class="eyebrow">Ubicación</p>' +
+    '<div class="field-grid" style="margin-top:12px">' +
+    field("Domicilio confirmado", d.domOk) + field("Entre calles", d.entre) +
+    field("Referencia física", d.fisica) + field("Ciudad, Estado", d.plaza) +
+    field("Domicilio INE", d.domIne) + field("Última ubicación", d.gps) +
+    "</div></div>" +
+    '<div class="card card-raised"><p class="eyebrow">Historial de gestión</p><div class="timeline" style="margin-top:14px">' +
+    d.timeline.map(function (t) { return tl(t[0], t[1], t[2]); }).join("") +
+    "</div></div>";
+}
+function expDatos(nombre) {
+  var catalogo = {
+    "María Elena López": {
+      id: "NX-10482", bkt: "BKT 8 · 241 días", saldo: "$186,400", estatus: "En proceso",
+      asignado: "Seprocob (Luis Mora)", producto: "Moto · Italika FT 150",
+      plaza: "Guadalajara, Jal.",
+      cel: "33 1984 6621 · no contesta",
+      telOk: "33 1456 2290 · hermana, Laura López",
+      ref: "Vecino · casa azul · 33 1672 4408",
+      horario: "17:00 – 20:00",
+      domOk: "C. Morelos 118, Col. Americana, C.P. 44160",
+      entre: "Libertad y Pedro Moreno",
+      fisica: "Portón negro, segundo piso",
+      domIne: "C. Reforma 45, Centro — vacío, no visitar",
+      gps: "Hoy 09:14 · 20.6738, −103.3704 · 42 m",
+      timeline: [
+        ["Hoy · 09:14", "Visita evidenciada", "Luis Mora vía agente WhatsApp. Foto viva + GPS 42 m. Cliente no estaba."],
+        ["12 ago", "Consulta de saldo", "El gestor preguntó al agente. No pasó por Ara."],
+        ["3 jul", "Asignada a Seprocob", "Salía de AVI por 30 días sin evidencia."],
+        ["2 jun", "AVI · promesa verbal", "Sin convenio. No cuenta como PTP."],
+      ],
+    },
+    "Roberto Salinas": {
+      id: "NX-11027", bkt: "BKT 6 · 178 días", saldo: "$72,300", estatus: "Promesa de pago",
+      asignado: "Seprocob (Luis Mora)", producto: "Moto · Honda Cargo 150",
+      plaza: "Zapopan, Jal.",
+      cel: "33 2210 8845 · sí contesta",
+      telOk: "33 2210 8845 · titular",
+      ref: "Esposa · 33 1560 3391",
+      horario: "Sábados 10:00 – 14:00",
+      domOk: "Av. Guadalupe 2215, Col. Chapalita, C.P. 45040",
+      entre: "Nile y Tepeyac",
+      fisica: "Casa beige, reja blanca",
+      domIne: "Coincide con el confirmado",
+      gps: "18 ago · 20.6662, −103.4001 · 18 m",
+      timeline: [
+        ["18 ago", "PTP con convenio", "Firma + INE en magic link. Fecha 28 ago."],
+        ["10 ago", "Visita evidenciada", "Cliente en domicilio. Pidió convenio."],
+        ["3 jul", "Asignada a Seprocob", "Entró por solicitud de gestión externa."],
+      ],
+    },
+    "Diana Gutiérrez": {
+      id: "NX-10891", bkt: "BKT 9 · 268 días", saldo: "$155,000", estatus: "Sin gestión",
+      asignado: "Seprocob (Luis Mora)", producto: "Moto · Yamaha YBR 125",
+      plaza: "Tlaquepaque, Jal.",
+      cel: "33 1744 0192 · apagado",
+      telOk: "33 1890 5566 · mamá, no confirma domicilio",
+      ref: "Trabajo · taller sobre Av. Revolución",
+      horario: "Desconocido",
+      domOk: "Sin confirmar. Última visita no encontró a nadie.",
+      entre: "—",
+      fisica: "Edificio de 3 pisos, local en PB cerrado",
+      domIne: "C. Independencia 88, Centro — no abre nadie",
+      gps: "Sin evidencia en este periodo",
+      timeline: [
+        ["3 jul", "Asignada a Seprocob", "BKT 4+ directo al pool."],
+        ["May", "AVI · dos visitas sin contacto", "Sin foto viva. No cuenta."],
+      ],
+    },
+    "Héctor Palacios": {
+      id: "NX-10644", bkt: "BKT 5 · 142 días", saldo: "$88,200", estatus: "Al corriente",
+      asignado: "Seprocob (Luis Mora)", producto: "Moto · Italika DM 200",
+      plaza: "Tepic, Nay.",
+      cel: "311 124 7780 · sí contesta",
+      telOk: "311 124 7780 · titular",
+      ref: "Hermano · 311 156 2204",
+      horario: "Lun a vie 18:00 – 21:00",
+      domOk: "C. Puebla 47, Col. San Juan, C.P. 63000",
+      entre: "Hidalgo y Morelos",
+      fisica: "Casa de un piso, portón gris",
+      domIne: "Coincide con el confirmado",
+      gps: "15 ago · 21.5039, −104.8946 · 11 m",
+      timeline: [
+        ["15 ago", "Pago aplicado", "Abono en sucursal. Queda al corriente del convenio."],
+        ["1 ago", "Visita evidenciada", "Se cerró convenio en domicilio."],
+        ["3 jul", "Asignada a Seprocob", "Plaza Nayarit."],
+      ],
+    },
+  };
+  var hit = (nombre && catalogo[nombre]) ? catalogo[nombre] : catalogo["María Elena López"];
+  hit.nombre = nombre || "María Elena López";
+  return hit;
+}
+function field(k, v) {
+  return '<div class="field-row"><div class="k">' + k + '</div><div class="v">' + v + "</div></div>";
+}
+function tl(when, title, body) {
+  return '<div class="tl-item"><div class="dotcol"><div class="dot"></div><div class="line"></div></div>' +
+    '<div class="tl-body"><p class="when">' + when + "</p><h3>" + title + "</h3><p>" + body + "</p></div></div>";
+}
+function renderCartera(el) {
+  var a = ASIG.seprocob;
+  el.innerHTML =
+    pageHead("Cartera", "Seprocob · periodo 21 ago – 20 sep 2026. Abre el expediente para gestionar: contacto, domicilio e historial.", "") +
+    '<div class="kpi-row">' +
+    kpi(a.cuentas, "Cuentas") + kpi(a.monto, "Monto asignado") + kpi(a.rec, "Recuperación") +
+    kpi(a.pct.toFixed(1).replace(".", ",") + "%", "% recuperación") +
+    "</div>" +
+    '<div class="card card-raised" style="padding:0;overflow:auto"><table class="table"><thead><tr>' +
+    "<th>Cliente</th><th>Ciudad, Estado</th><th>Bucket</th><th>Saldo</th><th>Estatus</th></tr></thead><tbody>" +
+    a.clients.map(function (c) {
+      return '<tr class="asig-cli" style="cursor:pointer" data-cliente="' + c[0] + '"><td>' + cliCell(c[0]) +
+        "</td><td>" + c[1] + "</td><td>" + tag(c[2], "info") +
+        '</td><td class="td-num">' + c[3] + "</td><td>" + tag(c[4], estatusKind(c[4])) + "</td></tr>";
+    }).join("") +
+    "</tbody></table></div>";
+  bindExpedienteClicks(el);
+}
+
+/* 7. HITL */
+function renderHitl(el) {
+  el.innerHTML =
+    pageHead("Validar antes de aceptar en sistema", "El agente IA genera estos registros a partir de las conversaciones de gestión que requieren aprobación de Ara: daciones, resguardos y convenios. Al aceptar, se avisa a las áreas que correspondan.", "") +
+    '<div class="kpi-row">' + kpi("18", "Pendientes") + kpi("11", "Daciones") + kpi("4", "Resguardos") + kpi("3", "Convenios") + "</div>" +
+    hitl("Dación en pago", "Lucía Ramírez Soto · AVI", "Unidad en domicilio, cliente acepta. Foto viva + GPS + INE. Falta firma del convenio — el agente ya la pidió.", "Evidencia incompleta", "warn") +
+    hitl("Resguardo", "Héctor Nava · Opus", "Unidad en patio del despacho. Al aprobar se notifica a logística Nexu para el traslado.", "Avisar a logística", "info") +
+    hitl("PTP con convenio", "Roberto Salinas · Seprocob", "Convenio + INE en magic link. Fecha 28 ago.", "Lista para un tap", "ok");
+}
+function hitl(tipo, who, body, chip, kind) {
+  return '<div class="card card-raised" style="margin-bottom:12px"><div class="row between"><div><p class="eyebrow">' + tipo +
+    '</p><p class="card-title" style="margin:4px 0 0">' + who + "</p></div>" + tag(chip, kind) +
+    '</div><p class="card-sub">' + body + '</p><div class="hitl-actions" style="margin-top:12px">' +
+    '<button type="button" class="btn btn-secondary">Rechazar</button>' +
+    '<button type="button" class="btn btn-primary">Aprobar y notificar</button></div></div>';
+}
+
+/* 8. Propuesta fase posterior */
+function renderPropuesta(el) {
+  el.innerHTML =
+    pageHead("El agente propone la siguiente asignación", "Fase 2. Cuando ya hay historial y Ara/Jesús escribieron las reglas. El piloto termina en el paso 8.", "") +
+    '<div class="later-banner">Esto no se construye ahora. Se muestra para que se vea el camino: la data del piloto alimenta esta propuesta.</div>' +
+    '<div class="card card-raised" style="margin-bottom:16px"><p class="card-title">Propuesta del agente · septiembre</p>' +
+    '<p class="card-sub">Deja a Seprocob las 48 cuentas con PTP o visita reciente. Rota las 71 de AVI sin evidencia. Gotea 22 de Recoup a Opus por geo.</p>' +
+    '<div class="row gap8" style="flex-wrap:wrap;margin-top:12px">' +
+    tag("No rotar con PTP vigente", "ok") + tag("Rotar si 30 d y 0 visitas", "warn") + tag("Equilibrio de buckets", "info") +
+    "</div></div>" +
+    '<div class="row gap12"><button type="button" class="btn btn-secondary">Ajustar</button>' +
+    '<button type="button" class="btn btn-primary">Aprobar propuesta</button></div>';
+}
+
+var SCREENS = {
+  whatsapp: { role: "despacho", active: "entrega", flowId: "whatsapp", title: "Agente WhatsApp",
+    banner: "Paso 1 de 8. Fase 1. El visitador reporta por WhatsApp. El agente lo guarda en el sistema.", render: renderWhatsapp },
+  expediente: { role: "nexu", active: "cartera", flowId: "cartera", title: "Expediente",
+    banner: "Paso 2 de 8. Fase 1. Contacto, ubicación e historial para gestionar al cliente. Se queda en Nexu si rota el despacho.", render: renderExpediente },
+  cartera: { role: "nexu", active: "cartera", flowId: "cartera", title: "Mi cartera",
+    banner: "Paso 2 de 8. Fase 1. La cartera asignada. Un clic abre el expediente del cliente.", render: renderCartera },
+  entrega: { role: "despacho", active: "entrega", flowId: "entrega", title: "Entrega",
+    banner: "Paso 3 de 8. Fase 1. Así llega el aviso al despacho: correo, WhatsApp y la vista de solo lectura.", render: renderEntrega },
+  despacho: { role: "despacho", active: "despacho", flowId: "entrega", title: "Mi cartera",
+    banner: "Paso 3 de 8. Fase 1. Lo que ve el gestor: cartera curada, solo lectura.", render: renderDespacho },
+  hitl: { role: "nexu", active: "hitl", flowId: "hitl", title: "Validaciones",
+    banner: "Paso 4 de 8. Fase 2. Ara aprueba daciones y resguardos antes de que entren al sistema.", render: renderHitl },
+  solicitud: { role: "gestor", active: "solicitud", flowId: "solicitud", title: "Solicitar gestión externa",
+    banner: "Paso 5 de 8. Fase 2. El gestor de Nexu pide que se visite a este cliente.", render: renderSolicitud },
+  pool: { role: "nexu", active: "pool", flowId: "pool", title: "Pool elegible",
+    banner: "Paso 6 de 8. Fase 2. Ara decide qué cuentas sí van a un gestor externo.", render: renderPool },
+  preparar: { role: "nexu", active: "preparar", flowId: "preparar", title: "Preparar asignación",
+    banner: "Paso 7 de 8. Fase 3. Ara marca despachos y visitadores internos de Nexu (CDMX y alrededores). La lógica asigna las cuentas.", render: renderPreparar },
+  asignacion: { role: "nexu", active: "asignacion", flowId: "asignacion", title: "Qué trae cada uno",
+    banner: "Paso 8 de 8. Fase 3. Lo asignado y cómo va cada uno en el periodo. Entra al detalle de clientes.", render: renderAsignacion },
+  asigdetalle: { role: "nexu", active: "asignacion", flowId: "asignacion", title: "Clientes asignados",
+    banner: "Paso 8 de 8. Fase 3. Clientes de este despacho o visitador Nexu, con su estatus de gestión.", render: renderAsigDetalle },
+};
+
+function firstStep() {
+  return (window.NexuProto && NexuProto.FLOW && NexuProto.FLOW[0] && NexuProto.FLOW[0].id) || "whatsapp";
+}
+
+var deckStartApplied = false;
+function renderRoute() {
+  var first = firstStep();
+  var id = (location.hash || "#").replace("#", "");
+  var start = new URLSearchParams(location.search).get("start");
+  if (id === "progreso") id = "asignacion";
+  if (!deckStartApplied && start) {
+    deckStartApplied = true;
+    if (start === "agente" || start === "1") id = first;
+    else if (SCREENS[start]) id = start;
+    history.replaceState(null, "", location.pathname + "#" + id);
+  } else if (!id || !SCREENS[id]) {
+    id = first;
+    history.replaceState(null, "", location.pathname + "#" + id);
+  }
+  var s = SCREENS[id];
+  var el = NexuProto.mount({ role: s.role, active: s.active, title: s.title, banner: s.banner, flowId: s.flowId });
+  s.render(el);
+  NexuProto.bind(el);
+}
+window.renderRoute = renderRoute;
+window.addEventListener("hashchange", renderRoute);
+renderRoute();
+</script>
+</body>
+</html>

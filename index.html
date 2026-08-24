@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Despachos externos — Enfoque y flujo · Nexu</title>
+<link rel="stylesheet" href="design-system/colors_and_type.css">
+<link rel="stylesheet" href="design-system/kit.css">
+<script src="design-system/icons.js"></script>
+<style>
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
+  body{background:var(--gray-100)}
+  .pitch{max-width:920px;margin:0 auto;padding:0 32px}
+  .pitch section{padding:56px 0}
+  .pitch section + section{border-top:1px solid var(--gray-200)}
+  .doc-nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--gray-200)}
+  .doc-nav-inner{max-width:920px;margin:0 auto;padding:0 32px;height:60px;display:flex;align-items:center;gap:24px}
+  .doc-nav .brand{display:flex;align-items:center;gap:10px;flex:none}
+  .doc-nav .brand .mark{width:22px;height:22px;color:var(--brand-primary-blue)}
+  .doc-nav .brand .mark svg{width:100%;height:100%;display:block}
+  .doc-nav .brand .word{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--text-base)}
+  .doc-nav .sep{width:1px;height:22px;background:var(--gray-200);flex:none}
+  .doc-links{display:flex;gap:4px;align-items:center;flex:1;min-width:0}
+  .doc-links a{font-family:var(--font-display);font-weight:700;font-size:12.5px;color:var(--text-muted);
+    text-decoration:none;white-space:nowrap;padding:8px 12px;border-radius:8px}
+  .doc-links a:hover{background:var(--primary-100);color:var(--brand-primary-blue)}
+  .doc-links a.btn{color:#fff;height:32px;padding:0 14px;font-size:12.5px;margin-left:auto;flex:none}
+  .doc-links a.btn:hover{background:var(--brand-secondary-blue);color:#fff}
+  a.btn{text-decoration:none;position:relative;z-index:2}
+  .hero{background:var(--action-navy);color:#fff;padding:56px 0 48px}
+  .hero-inner{max-width:920px;margin:0 auto;padding:0 32px}
+  .hero .eyebrow{color:var(--brand-accent-green);font-family:var(--font-body);font-size:12px;text-transform:uppercase;
+    letter-spacing:.12em;font-weight:600;margin:0 0 12px}
+  .hero h1{font-family:var(--font-display);font-weight:700;font-size:36px;line-height:1.15;letter-spacing:-.01em;
+    color:#fff;margin:0 0 14px}
+  .hero p.lede{font-family:var(--font-body);font-size:16px;line-height:1.55;color:rgba(255,255,255,.82);
+    max-width:580px;margin:0 0 24px}
+  .hero-cta a{text-decoration:none}
+  .sec-head{margin:0 0 28px}
+  .sec-head h2{font-family:var(--font-display);font-weight:700;font-size:var(--fs-07);line-height:var(--lh-07);
+    color:var(--text-base);margin:8px 0 0}
+  .agree-list{background:#fff;border-radius:var(--radius-md);border:1px solid var(--gray-200);overflow:hidden}
+  .agree-list li{display:flex;gap:16px;align-items:flex-start;padding:22px 28px;border-bottom:1px solid var(--gray-100);
+    font-family:var(--font-body);font-size:var(--fs-04);line-height:var(--lh-04);color:var(--text-base)}
+  .agree-list li:last-child{border-bottom:none}
+  .agree-list .n{width:32px;height:32px;border-radius:var(--radius-pill);background:var(--primary-100);
+    color:var(--brand-primary-blue);font-family:var(--font-display);font-weight:700;font-size:var(--fs-03);
+    display:flex;align-items:center;justify-content:center;flex:none;margin-top:2px}
+  .proto-jump{padding:32px}
+  .proto-jump .card-title{font-size:var(--fs-06);line-height:var(--lh-06);margin:0 0 12px}
+  .proto-jump .card-sub{font-size:var(--fs-04);line-height:var(--lh-04);color:var(--text-muted);margin:0 0 24px;max-width:640px}
+  .proto-jump .btn{text-decoration:none}
+  .rule{background:var(--primary-100);border-radius:var(--radius-md);padding:18px 22px;margin-top:16px;
+    font-family:var(--font-display);font-weight:700;font-size:var(--fs-04);line-height:1.45;color:var(--text-base)}
+  .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5);align-items:stretch}
+  .phase{padding:24px;display:flex;flex-direction:column}
+  .phase.now{box-shadow:0 0 0 2px var(--brand-primary-blue)}
+  .phase .lbl{font-family:var(--font-body);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--text-subtle);margin:0 0 8px}
+  .phase h3{font-family:var(--font-display);font-weight:700;font-size:var(--fs-05);line-height:var(--lh-05);margin:0 0 10px}
+  .phase > p{font-family:var(--font-body);font-size:var(--fs-03);line-height:var(--lh-03);color:var(--text-muted);margin:0 0 18px}
+  .phase-list + p{margin:14px 0 0;font-size:var(--fs-02);line-height:var(--lh-02)}
+  .phase-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--gray-100);padding-top:14px}
+  .phase-list li{font-family:var(--font-body);font-size:var(--fs-03);line-height:var(--lh-03);color:var(--text-base);
+    padding:8px 0;border-bottom:1px solid var(--gray-100);display:flex;gap:10px;align-items:flex-start}
+  .phase-list li:last-child{border-bottom:none}
+  .phase-list .step{font-family:var(--font-mono);font-size:var(--fs-02);color:var(--brand-primary-blue);flex:none;padding-top:2px}
+  .phase-list a{color:var(--action-blue);text-decoration:underline;text-underline-offset:2px}
+  .phase-list a:hover{color:var(--brand-primary-blue)}
+  .phase-list a:focus-visible{outline:2px solid var(--brand-secondary-blue);outline-offset:2px;border-radius:4px}
+  .cta{background:var(--action-navy);border-radius:24px;padding:32px 36px;color:#fff}
+  .cta h2{font-family:var(--font-display);font-weight:700;font-size:22px;color:#fff;margin:0 0 8px}
+  .cta p{font-family:var(--font-body);font-size:14px;color:rgba(255,255,255,.8);margin:0;line-height:1.55}
+  .doc-footer{padding:24px 0 48px;text-align:center}
+  .doc-footer p{font-family:var(--font-body);font-size:12px;color:var(--text-subtle);margin:0}
+  @media (max-width:900px){
+    .phases{grid-template-columns:1fr}
+    .hero h1{font-size:28px}
+    .sec-head h2{font-size:var(--fs-06);line-height:var(--lh-06)}
+    .doc-links{display:none}
+    .pitch{padding:0 20px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="doc-nav">
+  <div class="doc-nav-inner">
+    <div class="brand">
+      <span class="mark">
+        <svg viewBox="0 0 331.029 331.029" xmlns="http://www.w3.org/2000/svg"><path d="M 331 101.249 L 331 10.769 C 331 4.821 326.179 0 320.231 0 L 229.751 0 C 223.804 0 218.983 4.821 218.983 10.769 L 218.983 72.176 C 218.983 79.076 216.24 85.688 211.361 90.567 C 201.198 100.729 184.742 100.729 174.58 90.567 L 87.189 3.147 C 85.168 1.126 82.425 0 79.567 0 L 10.769 0 C 4.821 0 0 4.821 0 10.769 L 0 79.567 C 0 82.425 1.126 85.168 3.147 87.189 L 90.567 174.609 C 100.729 184.771 100.729 201.227 90.567 211.39 C 85.688 216.269 79.076 219.011 72.176 219.011 L 10.769 219.011 C 4.821 219.011 0 223.833 0 229.78 L 0 320.26 C 0 326.207 4.821 331.029 10.769 331.029 L 101.249 331.029 C 107.196 331.029 112.017 326.207 112.017 320.26 L 112.017 258.853 C 112.017 251.953 114.76 245.341 119.639 240.462 C 129.802 230.3 146.258 230.3 156.42 240.462 L 243.84 327.882 C 245.861 329.903 248.604 331.029 251.462 331.029 L 320.26 331.029 C 326.207 331.029 331.029 326.207 331.029 320.26 L 331.029 251.462 C 331.029 248.604 329.903 245.861 327.882 243.84 L 240.462 156.42 C 230.3 146.258 230.3 129.802 240.462 119.639 C 245.341 114.76 251.953 112.017 258.853 112.017 L 320.26 112.017 C 326.207 112.017 331.029 107.196 331.029 101.249 L 331 101.249 Z" fill="currentColor"></path></svg>
+      </span>
+      <span class="word">Nexu</span>
+    </div>
+    <div class="sep"></div>
+    <div class="doc-links">
+      <a href="#acuerdos">Acuerdos</a>
+      <a href="#fases">Fases</a>
+      <a href="#flujo">Alcance</a>
+      <a class="btn btn-primary btn-sm" href="prototipos/index.html?start=agente#whatsapp">Abrir prototipo</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Collections · Despachos externos</p>
+    <h1>Cómo vamos a trabajar con despachos externos</h1>
+    <p class="lede">Lo acordado, tres fases de entrega, y el prototipo donde se ve el alcance.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="prototipos/index.html?start=agente#whatsapp">Abrir el prototipo</a>
+    </div>
+  </div>
+</header>
+
+<div class="pitch">
+
+  <section id="acuerdos">
+    <div class="sec-head">
+      <span class="eyebrow">01</span>
+      <h2>Lo que ya acordamos</h2>
+    </div>
+    <ul class="agree-list">
+      <li><span class="n">1</span> Quien visita reporta por WhatsApp.</li>
+      <li><span class="n">2</span> El despacho puede visualizar su cartera.</li>
+      <li><span class="n">3</span> La cartera y el historial viven en Collection Center, no en WhatsApp.</li>
+      <li><span class="n">4</span> Ara y Jesús ven y deciden en pantallas: quién sale, a quién se asigna, qué se valida.</li>
+    </ul>
+  </section>
+
+  <section id="fases">
+    <div class="sec-head">
+      <span class="eyebrow">02</span>
+      <h2>Tres fases de entrega</h2>
+    </div>
+    <div class="phases">
+      <div class="card card-raised phase now">
+        <p class="lbl">Fase 1 · Primero</p>
+        <h3>Operar con el agente</h3>
+        <p>Empezar a capturar y a ver. La asignación se sigue mandando por Excel.</p>
+        <ul class="phase-list">
+          <li><span class="step">1</span> <a href="prototipos/index.html?start=whatsapp#whatsapp">Agente WhatsApp: visita, evidencia y consulta</a></li>
+          <li><span class="step">2</span> <a href="prototipos/index.html?start=cartera#cartera">Cartera despachos y expediente</a></li>
+          <li><span class="step">3</span> <a href="prototipos/index.html?start=entrega#entrega">Entrega de cartera</a></li>
+        </ul>
+      </div>
+      <div class="card card-raised phase">
+        <p class="lbl">Fase 2 · Después</p>
+        <h3>Decidir en Collection Center</h3>
+        <p>Ara y Jesús dejan de perseguir el dato a mano. La asignación sigue en Excel.</p>
+        <ul class="phase-list">
+          <li><span class="step">4</span> <a href="prototipos/index.html?start=hitl#hitl">Validar daciones y resguardos</a></li>
+          <li><span class="step">5</span> <a href="prototipos/index.html?start=solicitud#solicitud">Solicitar gestión externa</a></li>
+          <li><span class="step">6</span> <a href="prototipos/index.html?start=pool#pool">Pool elegible</a></li>
+        </ul>
+      </div>
+      <div class="card card-raised phase">
+        <p class="lbl">Fase 3 · Al final</p>
+        <h3>Asignar en la plataforma</h3>
+        <p>Se apaga el Excel de asignación. La entrega ya no se arma a mano.</p>
+        <ul class="phase-list">
+          <li><span class="step">7</span> <a href="prototipos/index.html?start=preparar#preparar">Preparar asignación</a></li>
+          <li><span class="step">8</span> <a href="prototipos/index.html?start=asignacion#asignacion">Qué trae cada uno — y cómo van en el periodo</a></li>
+        </ul>
+        <p>Más adelante: el agente propone la siguiente asignación con el historial ya capturado.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="flujo">
+    <div class="sec-head">
+      <span class="eyebrow">03</span>
+      <h2>El alcance está en el prototipo</h2>
+    </div>
+    <div class="card card-raised proto-jump">
+      <p class="card-title">Ocho pantallas, un solo recorrido</p>
+      <p class="card-sub">En el orden de las fases: primero operar (agente, cartera, entrega), luego decidir (validar, solicitar y pool), al final asignar en plataforma (preparar y asignación).</p>
+      <a class="btn btn-primary" href="prototipos/index.html?start=agente#whatsapp">Abrir el prototipo navegable</a>
+    </div>
+    <div class="rule">Las pantallas son para ver y decidir. WhatsApp es para reportar en la calle.</div>
+  </section>
+
+  <section id="seguir">
+    <div class="cta">
+      <h2>Para seguir</h2>
+      <p>Si este camino se entiende, el siguiente paso es confirmar la fase 1 y elegir uno o dos despachos para el piloto.</p>
+    </div>
+  </section>
+
+  <div class="doc-footer">
+    <p>Nexu Collections · Despachos externos</p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("[data-icon]").forEach(function (el) {
+    el.innerHTML = nexuIconSVG(el.getAttribute("data-icon"), Number(el.getAttribute("data-size") || 20));
+  });
+</script>
+</body>
+</html>

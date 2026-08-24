@@ -1,0 +1,299 @@
+/* ============================================================================
+   NEXU DESIGN SYSTEM — Foundations: Color + Type + Spacing + Elevation
+   Source: "UI Design System 2026 - WIP.fig" (Nexu). All hex values are exact.
+   Load this file (it @imports the fonts) before any component CSS.
+   ============================================================================ */
+
+/* Icon library: Google Material Symbols (Outlined + Rounded). @import must precede @font-face. */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+/* ----------------------------------------------------------------------------
+   FONTS
+   - Centra No1  → display, headings, labels, button text (Bold + Book)
+   - Centra Mono → numerics / tabular figures (Book)
+   - Inter       → body copy + dense UI text (variable)
+---------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Centra No1";
+  src: url("fonts/CentraNo1-Book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Centra No1";
+  src: url("fonts/CentraNo1-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Centra No1";
+  src: url("fonts/CentraNo1-BoldItalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Centra Mono";
+  src: url("fonts/CentraMono-Book.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/Inter-Variable.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ==========================================================================
+     COLOR — TEXT
+     ========================================================================== */
+  --text-base:    #041133; /* all primary text / headings */
+  --text-muted:   #62677A; /* subtitles, secondary copy */
+  --text-subtle:  #B6B6BC; /* captions, placeholders, disabled */
+  --text-on-dark: #FFFFFF; /* text on dark / brand backgrounds */
+
+  /* ==========================================================================
+     COLOR — BRAND
+     ========================================================================== */
+  --brand-primary-blue:   #3B3ACA; /* core brand identity blue */
+  --brand-secondary-blue: #313895; /* deep brand blue / focus rings */
+  --brand-accent-green:   #D9FCB1; /* Nexu accent green (logo, highlights) */
+
+  /* Action blue — the interactive primary used by buttons & nav.
+     (Distinct from brand-primary-blue in the component library.) */
+  --action-blue:       #3E60D6;
+  --action-navy:       #0A2762; /* sidebar / app chrome background */
+
+  /* ==========================================================================
+     COLOR — PRIMARY SHADES (interactive blue ramp)
+     ========================================================================== */
+  --primary-900: #2C4CB9; /* buttons, text, icons */
+  --primary-700: #6580DE;
+  --primary-500: #B2BFEF;
+  --primary-300: #D8DFF7;
+  --primary-100: #EBEFFA;
+
+  /* ==========================================================================
+     COLOR — SECONDARY SHADES (deep blue ramp)
+     ========================================================================== */
+  --secondary-900: #222983;
+  --secondary-700: #5A60AA;
+  --secondary-500: #ADAFD5;
+  --secondary-300: #D6D7EA;
+  --secondary-100: #EAEBF4;
+
+  /* ==========================================================================
+     COLOR — NEUTRAL
+     ========================================================================== */
+  --gray-900: #3A3D49; /* buttons, text, icons */
+  --gray-700: #62636C; /* headers, footers, bars */
+  --gray-500: #A9ACB6; /* borders, lines, dividers */
+  --gray-200: #DDDEE1; /* shapes / component fills */
+  --gray-100: #F3F4FA; /* screen backgrounds */
+  --white:    #FFFFFF;
+
+  /* Extra surface tints observed across components */
+  --surface-page:   #F9F9F9; /* doc / canvas background */
+  --surface-faint:  #F3F4FA; /* level-1 card border / subtle fill */
+
+  /* ==========================================================================
+     COLOR — STATE / SEMANTIC
+     ========================================================================== */
+  --success-900: #148666; /* text + icons */
+  --success-700: #24A785;
+  --success-500: #96D8C2;
+  --success-300: #CBEDD3;
+  --success-100: #E0FBEA; /* soft background */
+
+  --warning-900: #DD9600; /* text + icons */
+  --warning-700: #F4BB45;
+  --warning-500: #FBE0A7;
+  --warning-300: #FDF0D3;
+  --warning-100: #FFF4DE; /* soft background */
+
+  --error-900: #AC2446; /* text + icons */
+  --error-800: #C8264F;
+  --error-700: #E64566;
+  --error-500: #F0ACB2;
+  --error-300: #FFD8DC;
+  --error-100: #FFE9EB; /* soft background */
+
+  /* ==========================================================================
+     TYPE — FAMILIES
+     ========================================================================== */
+  --font-display: "Centra No1", "Helvetica Neue", Arial, sans-serif; /* headings, labels, buttons */
+  --font-body:    "Inter", "Helvetica Neue", Arial, sans-serif;       /* body + dense UI */
+  --font-mono:    "Centra Mono", "Roboto Mono", ui-monospace, monospace; /* figures */
+
+  /* ==========================================================================
+     TYPE — SCALE (desktop). Pairs: size / line-height
+     ========================================================================== */
+  --fs-00: 8px;   --lh-00: 10px;
+  --fs-01: 10px;  --lh-01: 14px;
+  --fs-02: 12px;  --lh-02: 20px;  /* dominant UI text size */
+  --fs-03: 14px;  --lh-03: 24px;
+  --fs-04: 16px;  --lh-04: 26px;
+  --fs-05: 18px;  --lh-05: 28px;
+  --fs-06: 24px;  --lh-06: 32px;
+  --fs-07: 32px;  --lh-07: 40px;
+  --fs-08: 56px;  --lh-08: 64px;
+  --fs-09: 72px;  --lh-09: 80px;
+
+  /* ==========================================================================
+     SPACING — 8pt base, 4pt sub-steps
+     ========================================================================== */
+  --space-0: 2px;
+  --space-1: 4px;
+  --spacing-base: 8px;  /* base unit (token name: spacing-base) */
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;   /* grid gutter */
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+  --space-64: 256px;
+  --space-128: 512px;
+
+  /* ==========================================================================
+     RADII
+     ========================================================================== */
+  --radius-xs: 4px;
+  --radius-sm: 8px;   /* buttons, inputs, chips */
+  --radius-md: 16px;  /* cards */
+  --radius-lg: 32px;  /* large surfaces / sheets */
+  --radius-pill: 9999px; /* status tags, toggles */
+
+  /* ==========================================================================
+     ELEVATION — soft, low-contrast shadows (10,10,10 base)
+     ========================================================================== */
+  --shadow-hover-button: 0 4px 4px 0 rgba(0, 0, 0, 0.10); /* button hover lift */
+  --shadow-xs:  0 1px 2px 0 rgba(10, 10, 10, 0.05);
+  --shadow-s:   0 1px 4px 0 rgba(10, 10, 10, 0.10);
+  --shadow-m:   0 4px 10px -2px rgba(10, 10, 10, 0.10);   /* cards, dropdowns */
+  --shadow-l:   0 10px 15px -5px rgba(10, 10, 10, 0.10);  /* raised cards */
+  --shadow-xl:  0 15px 20px -5px rgba(10, 10, 10, 0.10);  /* popovers */
+  --shadow-2xl: 0 25px 40px -10px rgba(10, 10, 10, 0.20); /* modals */
+  --shadow-focus: 0 0 0 2px var(--secondary-900);         /* focus ring (composite) */
+  /* legacy aliases (kept so existing components don't break) */
+  --shadow-sm: var(--shadow-m);
+  --shadow-md: var(--shadow-l);
+  --shadow-lg: var(--shadow-xl);
+
+  /* Grid */
+  --grid-max: 1440px;
+  --grid-cols: 12; /* @kind other */
+  --grid-gutter: 24px;
+}
+
+/* ============================================================================
+   SEMANTIC TYPE ROLES
+   Apply as classes or copy the declarations. Headings = Centra No1 Bold.
+   ============================================================================ */
+.t-display {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-09); line-height: var(--lh-09); color: var(--text-base);
+  letter-spacing: -0.01em;
+}
+.t-h1 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-07); line-height: var(--lh-07); color: var(--text-base);
+}
+.t-h2 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-06); line-height: var(--lh-06); color: var(--text-base);
+}
+.t-h3 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-05); line-height: var(--lh-05); color: var(--text-base);
+}
+.t-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-04); line-height: var(--lh-04); color: var(--text-base);
+}
+.t-label {
+  /* input labels, eyebrow labels */
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-02); line-height: 16px; color: var(--text-base);
+}
+.t-body {
+  font-family: var(--font-body); font-weight: 400;
+  font-size: var(--fs-04); line-height: var(--lh-04); color: var(--text-base);
+}
+.t-body-strong {
+  font-family: var(--font-body); font-weight: 500;
+  font-size: var(--fs-04); line-height: var(--lh-04); color: var(--text-base);
+}
+.t-ui {
+  /* default dense UI text (table cells, fields) */
+  font-family: var(--font-body); font-weight: 400;
+  font-size: var(--fs-03); line-height: var(--lh-03); color: var(--text-base);
+}
+.t-ui-strong {
+  font-family: var(--font-body); font-weight: 500;
+  font-size: var(--fs-03); line-height: var(--lh-03); color: var(--text-base);
+}
+.t-caption {
+  font-family: var(--font-body); font-weight: 400;
+  font-size: var(--fs-02); line-height: var(--lh-02); color: var(--text-muted);
+}
+.t-button {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-03); line-height: var(--lh-02); letter-spacing: 0;
+}
+.t-mono {
+  font-family: var(--font-mono); font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-04); line-height: var(--lh-04); color: var(--text-base);
+}
+
+/* ============================================================================
+   ICONS — Material Symbols Outlined
+   Outlined variant, regular stroke (wght 400), color inherits via currentColor.
+   Recommended sizes: 16px inline · 20px UI · 24px navigation.
+   Render via nexuIconSVG(name, size) in icons.js (maps DS names → glyph names).
+   ============================================================================ */
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  direction: ltr;
+  overflow: hidden;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+.material-symbols-rounded {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  direction: ltr;
+  overflow: hidden;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
